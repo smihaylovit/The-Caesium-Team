@@ -1,7 +1,0 @@
-C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows.Tests\bin\Debug\Caesium.BullsAndCows.Tests.dll
-C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows.Tests\bin\Debug\Caesium.BullsAndCows.Tests.pdb
-C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows.Tests\bin\Debug\Caesium.BullsAndCows.exe
-C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows.Tests\bin\Debug\Caesium.BullsAndCows.pdb
-C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows.Tests\obj\Debug\Caesium.BullsAndCows.Tests.csprojResolveAssemblyReference.cache
-C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows.Tests\obj\Debug\Caesium.BullsAndCows.Tests.dll
-C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows.Tests\obj\Debug\Caesium.BullsAndCows.Tests.pdb
