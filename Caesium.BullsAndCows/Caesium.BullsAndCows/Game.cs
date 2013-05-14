@@ -7,7 +7,7 @@ namespace kravi
 {
     public class Game
     {
-        private string generatedNumberToWhatToGuess;
+        private string secretNumber;
         private List<int> poss;
         int cposs = 0;
         internal int score; 
@@ -29,14 +29,14 @@ namespace kravi
                 if (poss == null)
                 {
                     poss = new List<int>();
-                    for(int i=0;i<generatedNumberToWhatToGuess.Length;++i)
+                    for(int i=0;i<secretNumber.Length;++i)
                     {
                         poss.Add(i);
                     }
-                    for (int i = 0; i < generatedNumberToWhatToGuess.Length; i++)
+                    for (int i = 0; i < secretNumber.Length; i++)
                     {
                         int t = int.Parse(randomNumberProvider.CurrentProvider.GetRandomNumber());
-                        t = (int)((t - 1000.0) / 9000.0 * generatedNumberToWhatToGuess.Length);
+                        t = (int)((t - 1000.0) / 9000.0 * secretNumber.Length);
                         int tmp = poss[t];
                         poss[t] = poss[i];
                         poss[i] = tmp;
@@ -102,29 +102,29 @@ namespace kravi
 
         private bool MatchCurrent(string cmd)
         {
-            if (cmd == generatedNumberToWhatToGuess)
+            if (cmd == secretNumber)
             {
                 Console.WriteLine("HOLYCOW, YOU HAVE WON!");
                 return true;
             }
 
-            bool[] found = new bool[generatedNumberToWhatToGuess.Length];
+            bool[] found = new bool[secretNumber.Length];
 
-            int b = Count2(cmd, found);
-            int c = Count1(cmd, found);
+            int b = BullsCount(cmd, found);
+            int c = CowsCount(cmd, found);
 
             Console.WriteLine(b + " bull" + ((b != 1) ? "s" : "") + " and " + c + " cow" + ((c != 1) ? "s" : ""));
             return false;
         }
 
-        private int Count2(string cmd, bool[] found)
+        private int BullsCount(string inputNumber, bool[] found)
         {
             int c = 0;
-            for (int i = 0; i < generatedNumberToWhatToGuess.Length; i++)
+            for (int i = 0; i < secretNumber.Length; i++)
             {
-                for (int j = 0; j < cmd.Length; j++)
+                for (int j = 0; j < inputNumber.Length; j++)
                 {
-                    if (generatedNumberToWhatToGuess[i] == cmd[j])
+                    if (secretNumber[i] == inputNumber[j])
                     {
                         if (i == j)
                         {
@@ -138,21 +138,21 @@ namespace kravi
             return c;
         }
 
-        private int Count1(string cmd, bool[] found)
+        private int CowsCount(string inputNumber, bool[] found)
         {
-            int c = 0;
-            for (int i = 0; i < generatedNumberToWhatToGuess.Length; i++)
+            int cowsCount = 0;
+            for (int i = 0; i < secretNumber.Length; i++)
             {
                 if (!found[i])
                 {
-                    bool found2 = false;
-                    for (int j = 0; j < cmd.Length; j++)
+                    bool isCowFound = false;
+                    for (int j = 0; j < inputNumber.Length; j++)
                     {
-                        if (generatedNumberToWhatToGuess[i] == cmd[j])
+                        if (secretNumber[i] == inputNumber[j])
                         {
                             if (i != j)
                             {
-                                found2 = true;
+                                isCowFound = true;
                             }
                             else
                             {
@@ -160,22 +160,27 @@ namespace kravi
                             }
                         }
                     }
-                    if (found2) { c++; }
+                    if (isCowFound) { cowsCount++; }
                 }
             }
 
-            return c;
+            return cowsCount;
         }
 
         private void ShowRand()
         {
-            Console.WriteLine("Bull at position "+(Positions[++cposs % generatedNumberToWhatToGuess.Length]+1)+ ": <" + generatedNumberToWhatToGuess[Positions[cposs % generatedNumberToWhatToGuess.Length]] + ">");
+            int bulatpos = Positions[++cposs % secretNumber.Length]+1;
+            int bull = secretNumber[Positions[cposs % secretNumber.Length]];
+            char[] str = new char[] { 'X', 'X', 'X', 'X' };
+            str[bulatpos] = (char) bull;
+            Console.WriteLine("The number looks like " + str.ToString());
         }
 
         private void Init()
         {
-            randomNumberProvider.CurrentProvider = new MyProvider();
-            generatedNumberToWhatToGuess = randomNumberProvider.CurrentProvider.GetRandomNumber();
+            //randomNumberProvider.CurrentProvider = new MyProvider();
+            secretNumber = new Random().Next(1000, 10000).ToString();
+            //randomNumberProvider.CurrentProvider.GetRandomNumber();
             score = 0;
         }
     }
