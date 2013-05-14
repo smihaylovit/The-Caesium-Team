@@ -1,3 +1,4 @@
 C:\Users\Stoyan\Documents\Visual Studio 2012\Projects\C#\Caesium.BullsAndCows\Caesium.BullsAndCows\bin\Debug\Caesium.BullsAndCows.exe.config
 C:\Users\Stoyan\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\bin\Debug\Caesium.BullsAndCows.exe.config
 C:\Users\Adrian\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\bin\Debug\Caesium.BullsAndCows.exe.config
+C:\Users\Nikki\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\bin\Debug\Caesium.BullsAndCows.exe.config
