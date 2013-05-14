@@ -41,12 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game.cs" />
-    <Compile Include="MyProvider.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="GameEngine.cs" />
+    <Compile Include="BullsAndCowsMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="randomNumberProvider.cs" />
-    <Compile Include="Record.cs" />
+    <Compile Include="ScoreRecord.cs" />
     <Compile Include="ScoreBoard.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,12 +8,12 @@ namespace Caesium.BullsAndCows
     public class ScoreBoard
     {
         const int topRecordsNumber = 5;
-        public List<Record> TopRecords { get; private set; }
+        public List<ScoreRecord> TopRecords { get; private set; }
 
         // TODO fix this method, duplicates with DoTopScore from Program class
         public ScoreBoard()
         {
-            this.TopRecords = new List<Record>(topRecordsNumber);
+            this.TopRecords = new List<ScoreRecord>(topRecordsNumber);
         }
 
         public override string ToString()

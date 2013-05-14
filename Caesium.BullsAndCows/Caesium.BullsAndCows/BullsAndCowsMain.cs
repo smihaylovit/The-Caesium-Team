@@ -6,11 +6,11 @@ using System.Text;
 namespace Caesium.BullsAndCows
 {
 //Helloween sa mnogo zdravi, yaaaaaaaaaaahh snoshti biah na koncerta!!!!!!!!!!!!
-    public delegate void TopScoresDelegate(Game g, ScoreBoard board);
-    class Program
+    public delegate void TopScoresDelegate(GameEngine g, ScoreBoard board);
+    class BullsAndCowsMain
     {
         // TODO move this method to the ScoreBoard class
-        private static void DoTopScores(Game currentGame, ScoreBoard board)
+        private static void DoTopScores(GameEngine currentGame, ScoreBoard board)
         {
             if (currentGame.numberOfCheats != 0)
             {
@@ -28,7 +28,7 @@ namespace Caesium.BullsAndCows
 
                     string name = Console.ReadLine();
 
-                    board.TopRecords.Add(new Record(name, currentGame.numberOfGuesses));
+                    board.TopRecords.Add(new ScoreRecord(name, currentGame.numberOfGuesses));
                     board.TopRecords.Sort();
                     Console.WriteLine(board.ToString());
                 }
@@ -46,7 +46,7 @@ namespace Caesium.BullsAndCows
                     string name = Console.ReadLine();
 
                     board.TopRecords.RemoveAt(board.TopRecords.Count - 1);
-                    board.TopRecords.Add(new Record(name, currentGame.numberOfGuesses));
+                    board.TopRecords.Add(new ScoreRecord(name, currentGame.numberOfGuesses));
                     board.TopRecords.Sort();
                 }
             }
@@ -55,7 +55,7 @@ namespace Caesium.BullsAndCows
         static void Main()
         {
             ScoreBoard board = new ScoreBoard();
-            while (new Game(board, DoTopScores).Run()) { }
+            while (new GameEngine(board, DoTopScores).Run()) { }
         }
     }
 }

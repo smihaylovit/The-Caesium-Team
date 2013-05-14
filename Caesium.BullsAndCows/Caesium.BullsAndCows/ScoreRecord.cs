@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Caesium.BullsAndCows
 {
-    public class Record : IComparable<Record>
+    public class ScoreRecord : IComparable<ScoreRecord>
     {
         private string name;
         private int score;     
     
-        public Record(string name, int score)
+        public ScoreRecord(string name, int score)
         {
             this.name = name;
             this.score = score;
@@ -32,7 +32,7 @@ namespace Caesium.BullsAndCows
             }
         }
 
-        public int CompareTo(Record otherRecord)
+        public int CompareTo(ScoreRecord otherRecord)
         {
             return this.score.CompareTo(otherRecord.score);
         }

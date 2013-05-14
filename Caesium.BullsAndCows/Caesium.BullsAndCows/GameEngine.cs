@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Caesium.BullsAndCows
 {
-    public class Game
+    public class GameEngine
     {
         private string secretNumber;
         private List<int> positionsList;
@@ -17,7 +17,7 @@ namespace Caesium.BullsAndCows
         private ScoreBoard myBoard;
         private TopScoresDelegate showTopScores;
 
-        public Game(ScoreBoard bb, TopScoresDelegate doTopScores)
+        public GameEngine(ScoreBoard bb, TopScoresDelegate doTopScores)
         {
             this.myBoard = bb;
             this.showTopScores = doTopScores;
@@ -37,7 +37,7 @@ namespace Caesium.BullsAndCows
                     }
                     for (int i = 0; i < secretNumber.Length; i++)
                     {
-                        int t = int.Parse(randomNumberProvider.CurrentProvider.GetRandomNumber());
+                        int t = int.Parse(new Random().Next(1000, 10000).ToString());
                         t = (int)((t - 1000.0) / 9000.0 * secretNumber.Length);
                         int tmp = positionsList[t];
                         positionsList[t] = positionsList[i];
@@ -192,9 +192,8 @@ namespace Caesium.BullsAndCows
 
         private void Init()
         {
-            randomNumberProvider.CurrentProvider = new MyProvider();
             //secretNumber = new Random().Next(1000, 10000).ToString();
-            secretNumber = randomNumberProvider.CurrentProvider.GetRandomNumber();
+            secretNumber = "1234";
             numberOfGuesses = 0;
             numberOfCheats = 0;
         }
