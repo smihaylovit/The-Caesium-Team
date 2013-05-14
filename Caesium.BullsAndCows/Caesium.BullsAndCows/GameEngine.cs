@@ -12,15 +12,13 @@ namespace Caesium.BullsAndCows
         private int currentPosition = 0;
         internal int numberOfGuesses;
         internal int numberOfCheats;
-        private static readonly bool shouldContinue = true;
-        private static readonly bool shouldNotContinue = false;
-        private ScoreBoard myBoard;
+        private ScoreBoard scoreBoard;
         private TopScoresDelegate showTopScores;
 
-        public GameEngine(ScoreBoard bb, TopScoresDelegate doTopScores)
+        public GameEngine(ScoreBoard scoreBoard, TopScoresDelegate showScoreBoard)
         {
-            this.myBoard = bb;
-            this.showTopScores = doTopScores;
+            this.scoreBoard = scoreBoard;
+            this.showTopScores = showScoreBoard;
         }
 
         // TODO fix random help number generator
@@ -64,6 +62,7 @@ namespace Caesium.BullsAndCows
                 switch (command)
                 {
                     case "exit":
+                        Console.WriteLine("Good Bye!");
                         return false;
                     case "restart":
                         return true;
@@ -72,23 +71,15 @@ namespace Caesium.BullsAndCows
                         numberOfCheats += 1;
                         break;
                     case "top":
-                        Console.WriteLine(myBoard.ToString());
+                        Console.WriteLine(scoreBoard.ToString());
                         break;
                     default:
                         numberOfGuesses++;
 
                         if (IsGuessCurrect(command))
                         {
-                            this.showTopScores(this, this.myBoard);
-
-                            if (AskForNewGame())
-                            {
-                                return shouldContinue;
-                            }
-                            else 
-                            {
-                                return shouldNotContinue;
-                            }
+                            this.showTopScores(this, this.scoreBoard);
+                            return AskForNewGame();
                         }
                         break;
                 }
@@ -97,7 +88,7 @@ namespace Caesium.BullsAndCows
 
         private bool AskForNewGame()
         {
-            Console.WriteLine("Another game ? (Y/N)");
+            Console.WriteLine("Do you want to start a new game? (y/n)");
             string answer = Console.ReadLine();
 
             if (answer.ToLower() == "y")
@@ -106,6 +97,7 @@ namespace Caesium.BullsAndCows
             }
             else
             {
+                Console.WriteLine("Good bye!");
                 return false;
             }
         }

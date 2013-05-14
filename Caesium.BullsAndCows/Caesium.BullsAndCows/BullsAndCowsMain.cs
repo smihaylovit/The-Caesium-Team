@@ -10,33 +10,33 @@ namespace Caesium.BullsAndCows
     class BullsAndCowsMain
     {
         // TODO move this method to the ScoreBoard class
-        private static void DoTopScores(GameEngine currentGame, ScoreBoard board)
+        private static void ShowScoreBoard(GameEngine currentGame, ScoreBoard currentScoreBoard)
         {
             if (currentGame.numberOfCheats != 0)
             {
                 Console.WriteLine("Congratulations! You guessed the secret number in " + currentGame.numberOfGuesses + 
                               " attempts and " + currentGame.numberOfCheats + " cheats.");
                 Console.WriteLine("You are not allowed to enter the top scoreboard.");
-                Console.WriteLine(board.ToString());
+                Console.WriteLine(currentScoreBoard.ToString());
             }
             else
             {
-                if (board.TopRecords.Count < 5)
+                if (currentScoreBoard.TopRecords.Count < 5)
                 {
                     Console.WriteLine("Congratulations! You guessed the secret number in " + currentGame.numberOfGuesses + " attempts.");
                     Console.Write("Please enter your name for the top scoreboard: ");
 
                     string name = Console.ReadLine();
 
-                    board.TopRecords.Add(new ScoreRecord(name, currentGame.numberOfGuesses));
-                    board.TopRecords.Sort();
-                    Console.WriteLine(board.ToString());
+                    currentScoreBoard.TopRecords.Add(new ScoreRecord(name, currentGame.numberOfGuesses));
+                    currentScoreBoard.TopRecords.Sort();
+                    Console.WriteLine(currentScoreBoard.ToString());
                 }
-                else if (currentGame.numberOfGuesses >= board.TopRecords[board.TopRecords.Count - 1].Score)
+                else if (currentGame.numberOfGuesses >= currentScoreBoard.TopRecords[currentScoreBoard.TopRecords.Count - 1].Score)
                 {
                     Console.WriteLine("Congratulations! You guessed the secret number in " + currentGame.numberOfGuesses + " attempts.");
                     Console.WriteLine("You are not allowed to enter the top scoreboard.");
-                    Console.WriteLine(board.ToString());
+                    Console.WriteLine(currentScoreBoard.ToString());
                 }
                 else
                 {
@@ -45,17 +45,18 @@ namespace Caesium.BullsAndCows
 
                     string name = Console.ReadLine();
 
-                    board.TopRecords.RemoveAt(board.TopRecords.Count - 1);
-                    board.TopRecords.Add(new ScoreRecord(name, currentGame.numberOfGuesses));
-                    board.TopRecords.Sort();
+                    currentScoreBoard.TopRecords.RemoveAt(currentScoreBoard.TopRecords.Count - 1);
+                    currentScoreBoard.TopRecords.Add(new ScoreRecord(name, currentGame.numberOfGuesses));
+                    currentScoreBoard.TopRecords.Sort();
+                    Console.WriteLine(currentScoreBoard.ToString());
                 }
             }
         }
 
         static void Main()
         {
-            ScoreBoard board = new ScoreBoard();
-            while (new GameEngine(board, DoTopScores).Run()) { }
+            ScoreBoard currentScoreBoard = new ScoreBoard();
+            while (new GameEngine(currentScoreBoard, ShowScoreBoard).Run()) { }
         }
     }
 }
