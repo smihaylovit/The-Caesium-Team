@@ -3,49 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Caesium.BullsAndCows
+namespace kravi
 {
     public class Record : IComparable<Record>
     {
-        private string name;
-        private int score;     
-    
+        string name;
+        int score;         
         public Record(string name, int score)
         {
             this.name = name;
             this.score = score;
         }
-
         public string Name
         {
             get
             {
-                return this.name;
+
+
+
+                return name;
             }
         }
-
         public int Score
         {
             get
             {
-                return this.score;
+                return score;
             }
         }
-
-        public int CompareTo(Record otherRecord)
+        public int CompareTo(Record other)
         {
-            return this.score.CompareTo(otherRecord.score);
-        }
-
-        public override string ToString()
-        {
-            StringBuilder result = new StringBuilder();
-            result.Append(this.Name);
-            result.Append(" ----> ");
-            result.Append(this.Score);
-            result.Append(" guesses.");
-
-            return result.ToString();
+            return score.CompareTo(other.score);
         }
     }
 }

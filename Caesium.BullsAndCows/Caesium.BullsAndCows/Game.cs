@@ -2,50 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 //test
-namespace Caesium.BullsAndCows
+namespace kravi
 {
     public class Game
     {
         private string secretNumber;
-        private List<int> positionsList;
-        private int currentPosition = 0;
+        private List<int> poss;
+        int cposs = 0;
         internal int score; 
         private static readonly bool shouldContinue = true;
         private static readonly bool shouldNotContinue = false;
         private ScoreBoard myBoard;
-        private TopScoresDelegate showTopScores;
+        private TopScoresDelegate doTopScores;
 
         public Game(ScoreBoard bb, TopScoresDelegate doTopScores)
         {
             this.myBoard = bb;
-            this.showTopScores = doTopScores;
+            this.doTopScores = doTopScores;
         }
 
-        // TODO fix random help number generator
         private List<int> Positions
         {
             get
             {
-                if (positionsList == null)
+                if (poss == null)
                 {
-                    positionsList = new List<int>();
+                    poss = new List<int>();
                     for(int i=0;i<secretNumber.Length;++i)
                     {
-                        positionsList.Add(i);
+                        poss.Add(i);
                     }
                     for (int i = 0; i < secretNumber.Length; i++)
                     {
                         int t = int.Parse(randomNumberProvider.CurrentProvider.GetRandomNumber());
                         t = (int)((t - 1000.0) / 9000.0 * secretNumber.Length);
-                        int tmp = positionsList[t];
-                        positionsList[t] = positionsList[i];
-                        positionsList[i] = tmp;
+                        int tmp = poss[t];
+                        poss[t] = poss[i];
+                        poss[i] = tmp;
                     }
                 }
 
-                return positionsList;
+                return poss;
             }
         }
 
@@ -56,9 +54,8 @@ namespace Caesium.BullsAndCows
 
             while (true)
             {
-                string command = Console.ReadLine();
-
-                switch (command)
+                string komandata = Console.ReadLine();
+                switch (komandata)
                 {
                     case "exit":
                         return shouldNotContinue;
@@ -77,11 +74,11 @@ namespace Caesium.BullsAndCows
                             score++;
                         }
 
-                        if (IsGuessCurrect(command))
+                        if (MatchCurrent(komandata))
                         {
-                            this.showTopScores(this, this.myBoard);
+                            this.doTopScores(this, this.myBoard);
 
-                            if (AskForNewGame())
+                            if (Qustion())
                             {
                                 return shouldContinue;
                             }
@@ -95,73 +92,63 @@ namespace Caesium.BullsAndCows
             } 
         }
 
-        private bool AskForNewGame()
+        private bool Qustion()
         {
             Console.WriteLine("Another game ? (Y/N)");
-            string answer = Console.ReadLine();
-
-            if (answer.ToLower() == "y")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            string s = Console.ReadLine();
+            if (s.ToLower() == "y") return true;
+            else return false;
         }
 
-        private bool IsGuessCurrect(string guessedNumber)
+        private bool MatchCurrent(string cmd)
         {
-            if (guessedNumber == secretNumber)
+            if (cmd == secretNumber)
             {
                 Console.WriteLine("HOLYCOW, YOU HAVE WON!");
                 return true;
             }
 
-            bool[] foundPositions = new bool[secretNumber.Length];
+            bool[] found = new bool[secretNumber.Length];
 
-            int bullsCount = BullsCount(guessedNumber, foundPositions);
-            int cowsCount = CowsCount(guessedNumber, foundPositions);
+            int b = BullsCount(cmd, found);
+            int c = CowsCount(cmd, found);
 
-            Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullsCount, cowsCount);
+            Console.WriteLine(b + " bull" + ((b != 1) ? "s" : "") + " and " + c + " cow" + ((c != 1) ? "s" : ""));
             return false;
         }
 
-        private int BullsCount(string guessedNumber, bool[] foundBullPosition)
+        private int BullsCount(string inputNumber, bool[] found)
         {
-            int bullsCount = 0;
-
+            int c = 0;
             for (int i = 0; i < secretNumber.Length; i++)
             {
-                for (int j = 0; j < guessedNumber.Length; j++)
+                for (int j = 0; j < inputNumber.Length; j++)
                 {
-                    if (secretNumber[i] == guessedNumber[j])
+                    if (secretNumber[i] == inputNumber[j])
                     {
                         if (i == j)
                         {
-                            foundBullPosition[i] = true;
-                            bullsCount++;
+                            found[i] = true;
+                            c++;
                         }
                     }
                 }
             }
 
-            return bullsCount;
+            return c;
         }
 
-        // Counts how many cows are found in the guessed number
-        private int CowsCount(string guessedNumber, bool[] foundCowPositions)
+        private int CowsCount(string inputNumber, bool[] found)
         {
             int cowsCount = 0;
-
             for (int i = 0; i < secretNumber.Length; i++)
             {
-                if (!foundCowPositions[i])
+                if (!found[i])
                 {
                     bool isCowFound = false;
-                    for (int j = 0; j < guessedNumber.Length; j++)
+                    for (int j = 0; j < inputNumber.Length; j++)
                     {
-                        if (secretNumber[i] == guessedNumber[j])
+                        if (secretNumber[i] == inputNumber[j])
                         {
                             if (i != j)
                             {
@@ -180,11 +167,10 @@ namespace Caesium.BullsAndCows
             return cowsCount;
         }
 
-        // TODO fix this method
         private void ShowRand()
         {
-            int bulatpos = Positions[++currentPosition % secretNumber.Length]+1;
-            int bull = secretNumber[Positions[currentPosition % secretNumber.Length]];
+            int bulatpos = Positions[++cposs % secretNumber.Length]+1;
+            int bull = secretNumber[Positions[cposs % secretNumber.Length]];
             char[] str = new char[] { 'X', 'X', 'X', 'X' };
             str[bulatpos] = (char) bull;
             Console.WriteLine("The number looks like " + str.ToString());
