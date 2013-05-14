@@ -12,3 +12,8 @@ C:\Users\Adrian\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.B
 C:\Users\Stoyan\Desktop\New folder\Caesium.BullsAndCows\Caesium.BullsAndCows\bin\Debug\Caesium.BullsAndCows.exe.config
 C:\Users\Stoyan\Desktop\New folder\Caesium.BullsAndCows\Caesium.BullsAndCows\obj\Debug\Caesium.BullsAndCows.exe
 C:\Users\Stoyan\Desktop\New folder\Caesium.BullsAndCows\Caesium.BullsAndCows\obj\Debug\Caesium.BullsAndCows.pdb
+C:\Users\Adrian\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\obj\Debug\Caesium.BullsAndCows.exe
+C:\Users\Adrian\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\obj\Debug\Caesium.BullsAndCows.pdb
+C:\Users\Adrian\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\bin\Debug\Caesium.BullsAndCows.exe
+C:\Users\Adrian\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\bin\Debug\Caesium.BullsAndCows.pdb
+C:\Users\Adrian\Documents\GitHub\The-Caesium-Team\Caesium.BullsAndCows\Caesium.BullsAndCows\obj\Debug\Caesium.BullsAndCows.csprojResolveAssemblyReference.cache
