@@ -7,6 +7,7 @@ namespace kravi
 {
     public class randomNumberProvider
     {
+        // TODO make this class to just generate a random number (1000-9999) no need for a derived class (MyProvider.cs)
         protected Random r = new Random();
         private static randomNumberProvider currentProvider;
         public static randomNumberProvider CurrentProvider

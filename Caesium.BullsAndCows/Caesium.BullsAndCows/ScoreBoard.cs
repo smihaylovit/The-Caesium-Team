@@ -9,6 +9,7 @@ namespace kravi
     {
         internal Record[] board = new Record[5];
 
+        // TODO fix this method, duplicates with DoTopScore from Program class
         public ScoreBoard() {
             for (int i = 0; i < 5; i++)
                 board[i] = new Record("Unknown", int.MaxValue);

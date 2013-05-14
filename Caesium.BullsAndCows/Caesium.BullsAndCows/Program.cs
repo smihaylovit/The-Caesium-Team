@@ -9,6 +9,7 @@ namespace kravi
     public delegate void TopScoresDelegate(Game g, ScoreBoard board);
     class Program
     {
+        // TODO move this method to the ScoreBoard class
         private static void DoTopScores(Game g, ScoreBoard board)
         {
             if (g.score != -1 && g.score < board.board[4].Score)
