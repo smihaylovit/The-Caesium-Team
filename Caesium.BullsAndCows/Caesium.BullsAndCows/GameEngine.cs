@@ -15,36 +15,15 @@ namespace Caesium.BullsAndCows
         private ScoreBoard scoreBoard;
         private TopScoresDelegate showTopScores;
 
+        // Fields for generating random bull position for the help command
+        // see GenerateRandomPosition and ShowRand methods
+        private List<int> Positions = new List<int>() { 0, 1, 2, 3 };
+        private int maxRandomNumber = 4;
+
         public GameEngine(ScoreBoard scoreBoard, TopScoresDelegate showScoreBoard)
         {
             this.scoreBoard = scoreBoard;
             this.showTopScores = showScoreBoard;
-        }
-
-        // TODO fix random help number generator
-        private List<int> Positions
-        {
-            get
-            {
-                if (positionsList == null)
-                {
-                    positionsList = new List<int>();
-                    for(int i=0;i<secretNumber.Length;++i)
-                    {
-                        positionsList.Add(i);
-                    }
-                    for (int i = 0; i < secretNumber.Length; i++)
-                    {
-                        int t = int.Parse(new Random().Next(1000, 10000).ToString());
-                        t = (int)((t - 1000.0) / 9000.0 * secretNumber.Length);
-                        int tmp = positionsList[t];
-                        positionsList[t] = positionsList[i];
-                        positionsList[i] = tmp;
-                    }
-                }
-
-                return positionsList;
-            }
         }
 
         public bool Run()
@@ -67,7 +46,7 @@ namespace Caesium.BullsAndCows
                     case "restart":
                         return true;
                     case "help":          
-                        ShowRand();
+                        PrintRandomBull();
                         numberOfCheats += 1;
                         break;
                     case "top":
@@ -172,14 +151,34 @@ namespace Caesium.BullsAndCows
             return cowsCount;
         }
 
-        // TODO fix this method
-        private void ShowRand()
+
+        // Generates a random position that is unique.
+        // You cant get the same position 2 times
+        private int GenerateRandomPosition()
         {
-            int bulatpos = Positions[++currentPosition % secretNumber.Length];
-            char bull = secretNumber[Positions[currentPosition % secretNumber.Length]];
-            StringBuilder str = new StringBuilder("XXXX");
-            str[bulatpos] = bull;
-            Console.WriteLine("The number looks like " + str.ToString());
+            if (maxRandomNumber <= 0)
+            {
+                throw new Exception("You cant call for help anymore!");
+            }
+
+            Random rand = new Random();
+            int randomNumber = rand.Next(0, maxRandomNumber);
+            int generatedNumber = Positions[randomNumber];
+
+            maxRandomNumber--;
+            Positions.RemoveAt(randomNumber);
+
+            return generatedNumber;
+        }
+
+        // Prints on the console a random bull
+        private void PrintRandomBull()
+        {
+            int randomPosition = GenerateRandomPosition();
+            char bull = secretNumber[randomPosition];
+            StringBuilder sb = new StringBuilder("XXXX");
+            sb[randomPosition] = bull;
+            Console.WriteLine("The number looks like " + sb.ToString());
         }
 
         private void Init()
