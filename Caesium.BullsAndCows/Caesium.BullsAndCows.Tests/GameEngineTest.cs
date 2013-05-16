@@ -7,24 +7,37 @@ namespace Caesium.BullsAndCows.Tests
     [TestClass]
     public class GameEngineTest
     {
-        private TextWriter consoleWriter = File.CreateText("../../output.txt");
-        private TextReader consoleReader;
-        private StreamWriter commandWriter = new StreamWriter("../../input.txt");
-        private StreamWriter expectedWriter = new StreamWriter("../../expected.txt");
+        private static TextWriter consoleWriter;
+        private static TextReader consoleReader;
+        private static StreamWriter commandWriter;
+        private static StreamWriter expectedWriter;
+        private static StreamReader expectedReader;
+        private static StreamReader outputReader;
 
         // This method runs BEFORE every test method.
         [TestInitialize]
         public void Initialize()
         {
+            expectedWriter = new StreamWriter("../../expected.txt");
             // redirect the console output to a file so we can compare them.
+            consoleWriter = File.CreateText("../../output.txt");
             Console.SetOut(consoleWriter);
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            consoleWriter.Close();
+            consoleReader.Close();
+            expectedWriter.Close();
+            expectedReader.Close();
         }
 
         // This method allows you to mimic Console.WriteLine
         // what you type in command will be "printed" on the console
         private void WriteCommand(params string[] commands)
         {
-            using (commandWriter)
+            using (commandWriter = new StreamWriter("../../input.txt"))
             {
                 foreach (var command in commands)
                 {
@@ -36,11 +49,44 @@ namespace Caesium.BullsAndCows.Tests
             Console.SetIn(consoleReader);
         }
 
+
         [TestMethod]
-        public void RunMethodExitTest()
+        public void RunExitTest()
+        {
+            WriteCommand("exit");
+
+            using (expectedWriter)
+            {
+                expectedWriter.WriteLine(@"Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
+Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
+and 'exit' to quit the game.
+Enter your guess or command: Good Bye!");
+            }
+            // load the expected output into a string
+            expectedReader = new StreamReader("../../expected.txt");
+            string expected = expectedReader.ReadToEnd();
+
+            // start the game
+            ScoreBoard currentScoreBoard = new ScoreBoard();
+            while (new GameEngine(currentScoreBoard, ScoreBoard.ShowScoreBoard).Run()) { }
+
+            // flush so the output of the console is printed in the file
+            consoleWriter.Flush();
+            // close the output file so we can read it (we dont need to write in it anymore)
+            consoleWriter.Close();
+
+            outputReader = new StreamReader("../../output.txt");
+            string output = outputReader.ReadToEnd();
+            outputReader.Close();
+
+            Assert.AreEqual(expected, output);
+        }
+
+        [TestMethod]
+        public void RunRightGuessTest()
         {
             // give commands to the game
-            WriteCommand("1234", "y", "exit");
+            WriteCommand("1234", "adrian", "n");
 
             // for some reason it doesn't work if we just define a string
             // so we use a txt file to write the expected output
@@ -52,7 +98,7 @@ and 'exit' to quit the game.
 Enter your guess or command: HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
 Please enter your name for the top scoreboard: ---------- Scoreboard ----------
-1. y ----> 1 guesses.
+1. adrian ----> 1 guesses.
 --------------------------------
 
 Do you want to start a new game? (y/n)
@@ -60,7 +106,8 @@ Good bye!");
             }
 
             // load the expected output into a string
-            string expected = new StreamReader("../../expected.txt").ReadToEnd();
+            expectedReader = new StreamReader("../../expected.txt");
+            string expected = expectedReader.ReadToEnd();
 
             // start the game
             ScoreBoard currentScoreBoard = new ScoreBoard();
@@ -70,9 +117,11 @@ Good bye!");
             consoleWriter.Flush();
             // close the output file so we can read it (we dont need to write in it anymore)
             consoleWriter.Close();
-            string output = new StreamReader("../../output.txt").ReadToEnd();
+            outputReader = new StreamReader("../../output.txt");
+            string output = outputReader.ReadToEnd();
+            outputReader.Close();
+
             Assert.AreEqual(expected, output);
-            
         }
 
         

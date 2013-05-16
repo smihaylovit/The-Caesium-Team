@@ -4,7 +4,7 @@ and 'exit' to quit the game.
 Enter your guess or command: HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
 Please enter your name for the top scoreboard: ---------- Scoreboard ----------
-1. y ----> 1 guesses.
+1. adrian ----> 1 guesses.
 --------------------------------
 
 Do you want to start a new game? (y/n)
