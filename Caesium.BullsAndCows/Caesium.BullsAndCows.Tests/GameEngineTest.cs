@@ -197,5 +197,46 @@ Enter your guess or command: Good Bye!");
         }
 
         #endregion
+
+        #region IsGuessCorrect Tests
+        [TestMethod]
+        public void IsGuessCorrectWrongGuessTest()
+        {
+            // give commands to the game
+            WriteCommand("1111", "1235", "1143", "exit");
+
+            // for some reason it doesn't work if we just define a string
+            // so we use a txt file to write the expected output
+            using (expectedWriter)
+            {
+                expectedWriter.WriteLine(@"Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
+Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
+and 'exit' to quit the game.
+Enter your guess or command: Wrong number! Bulls: 1, Cows: 0
+Enter your guess or command: Wrong number! Bulls: 3, Cows: 0
+Enter your guess or command: Wrong number! Bulls: 1, Cows: 2
+Enter your guess or command: Good Bye!");
+            }
+
+            // load the expected output into a string
+            expectedReader = new StreamReader("../../expected.txt");
+            string expected = expectedReader.ReadToEnd();
+
+            // start the game
+            ScoreBoard currentScoreBoard = new ScoreBoard();
+            while (new GameEngine(currentScoreBoard, ScoreBoard.ShowScoreBoard).Run()){ }
+
+            // flush so the output of the console is printed in the file
+            consoleWriter.Flush();
+            // close the output file so we can read it (we dont need to write in it anymore)
+            consoleWriter.Close();
+            outputReader = new StreamReader("../../output.txt");
+            string output = outputReader.ReadToEnd();
+            outputReader.Close();
+
+            Assert.AreEqual(expected, output);
+        }
+        #endregion
     }
+    
 }
