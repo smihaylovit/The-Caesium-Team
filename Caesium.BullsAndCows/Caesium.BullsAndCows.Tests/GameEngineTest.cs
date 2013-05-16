@@ -7,6 +7,7 @@ namespace Caesium.BullsAndCows.Tests
     [TestClass]
     public class GameEngineTest
     {
+        #region initialize and cleanup
         private static TextWriter consoleWriter;
         private static TextReader consoleReader;
         private static StreamWriter commandWriter;
@@ -24,6 +25,7 @@ namespace Caesium.BullsAndCows.Tests
             Console.SetOut(consoleWriter);
         }
 
+        // This method runs AFTER every test method
         [TestCleanup]
         public void CleanUp()
         {
@@ -32,6 +34,7 @@ namespace Caesium.BullsAndCows.Tests
             expectedWriter.Close();
             expectedReader.Close();
         }
+        #endregion
 
         // This method allows you to mimic Console.WriteLine
         // what you type in command will be "printed" on the console
@@ -49,6 +52,7 @@ namespace Caesium.BullsAndCows.Tests
             Console.SetIn(consoleReader);
         }
 
+        #region Run Method Tests
 
         [TestMethod]
         public void RunExitTest()
@@ -124,6 +128,74 @@ Good bye!");
             Assert.AreEqual(expected, output);
         }
 
-        
+        [TestMethod]
+        public void RunRestartTest()
+        {
+            WriteCommand("restart", "exit");
+
+            using (expectedWriter)
+            {
+                expectedWriter.WriteLine(@"Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
+Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
+and 'exit' to quit the game.
+Enter your guess or command: Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
+Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
+and 'exit' to quit the game.
+Enter your guess or command: Good Bye!");
+            }
+            // load the expected output into a string
+            expectedReader = new StreamReader("../../expected.txt");
+            string expected = expectedReader.ReadToEnd();
+
+            // start the game
+            ScoreBoard currentScoreBoard = new ScoreBoard();
+            while (new GameEngine(currentScoreBoard, ScoreBoard.ShowScoreBoard).Run()) { }
+
+            // flush so the output of the console is printed in the file
+            consoleWriter.Flush();
+            // close the output file so we can read it (we dont need to write in it anymore)
+            consoleWriter.Close();
+
+            outputReader = new StreamReader("../../output.txt");
+            string output = outputReader.ReadToEnd();
+            outputReader.Close();
+
+            Assert.AreEqual(expected, output);
+        }
+
+        [TestMethod]
+        public void RunHelpTest()
+        {
+            WriteCommand("top", "exit");
+
+            using (expectedWriter)
+            {
+                expectedWriter.WriteLine(@"Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
+Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
+and 'exit' to quit the game.
+Enter your guess or command: Top scoreboard is empty.
+Enter your guess or command: Good Bye!");
+            }
+            // load the expected output into a string
+            expectedReader = new StreamReader("../../expected.txt");
+            string expected = expectedReader.ReadToEnd();
+
+            // start the game
+            ScoreBoard currentScoreBoard = new ScoreBoard();
+            while (new GameEngine(currentScoreBoard, ScoreBoard.ShowScoreBoard).Run()) { }
+
+            // flush so the output of the console is printed in the file
+            consoleWriter.Flush();
+            // close the output file so we can read it (we dont need to write in it anymore)
+            consoleWriter.Close();
+
+            outputReader = new StreamReader("../../output.txt");
+            string output = outputReader.ReadToEnd();
+            outputReader.Close();
+
+            Assert.AreEqual(expected, output);
+        }
+
+        #endregion
     }
 }
