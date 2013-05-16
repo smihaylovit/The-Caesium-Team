@@ -28,7 +28,7 @@ namespace Caesium.BullsAndCows
 
         public bool Run()
         {
-            Console.WriteLine("Welcome to “Bulls and Cows” game. Please try to guess my secret 4-digit number.");
+            Console.WriteLine("Welcome to \"Bulls and Cows\" game. Please try to guess my secret 4-digit number.");
             Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat");
             Console.WriteLine("and 'exit' to quit the game.");
             Init();
