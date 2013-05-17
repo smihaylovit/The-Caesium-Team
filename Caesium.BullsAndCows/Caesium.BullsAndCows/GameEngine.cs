@@ -34,7 +34,7 @@ namespace Caesium.BullsAndCows
             Console.WriteLine("Welcome to \"Bulls and Cows\" game. Please try to guess my secret 4-digit number.");
             Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat");
             Console.WriteLine("and 'exit' to quit the game.");
-            
+
             InitializeGame();
 
             while (true)
@@ -50,7 +50,7 @@ namespace Caesium.BullsAndCows
                         return false;
                     case "restart":
                         return true;
-                    case "help":          
+                    case "help":
                         PrintRandomBull();
                         numberOfCheats += 1;
                         break;
@@ -67,7 +67,7 @@ namespace Caesium.BullsAndCows
                         }
                         break;
                 }
-            } 
+            }
         }
 
         /// <summary>
@@ -202,7 +202,10 @@ namespace Caesium.BullsAndCows
                             }
                         }
                     }
-                    if (isCowFound) { cowsCount++; }
+                    if (isCowFound) 
+                    { 
+                        cowsCount++; 
+                    }
                 }
             }
 
@@ -215,7 +218,7 @@ namespace Caesium.BullsAndCows
         private int GenerateRandomPosition()
         {
             if (maxRandomNumber <= 0)
-            {             
+            {
                 return -1;
             }
             else
@@ -227,7 +230,7 @@ namespace Caesium.BullsAndCows
                 maxRandomNumber--;
                 Positions.RemoveAt(randomNumber);
                 return generatedNumber;
-            }      
+            }
         }
 
         /// <summary>
