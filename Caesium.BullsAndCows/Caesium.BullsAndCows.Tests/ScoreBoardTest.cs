@@ -36,8 +36,10 @@ namespace Caesium.BullsAndCows.Tests
         }
         #endregion
 
-        // This method allows you to mimic Console.WriteLine
-        // what you type in command will be "printed" on the console
+        /// <summary>
+        /// This method allows you to mimic Console.WriteLine.
+        /// What you type in command will be "printed" on the console.
+        /// </summary>
         private void WriteCommand(params string[] commands)
         {
             using (commandWriter = new StreamWriter("../../input.txt"))
@@ -66,9 +68,12 @@ namespace Caesium.BullsAndCows.Tests
                 expectedWriter.WriteLine(@"Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
 Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
 and 'exit' to quit the game.
-Enter your guess or command: HOLYCOW, YOU HAVE WON!
+
+Enter your guess or command: 
+HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
-Please enter your name for the top scoreboard: ---------- Scoreboard ----------
+Please enter your name for the top scoreboard: 
+---------- Scoreboard ----------
 1. adrian ----> 1 guesses.
 --------------------------------
 
@@ -76,9 +81,12 @@ Do you want to start a new game? (y/n)
 Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
 Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
 and 'exit' to quit the game.
-Enter your guess or command: HOLYCOW, YOU HAVE WON!
+
+Enter your guess or command: 
+HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
-Please enter your name for the top scoreboard: ---------- Scoreboard ----------
+Please enter your name for the top scoreboard: 
+---------- Scoreboard ----------
 1. adrian ----> 1 guesses.
 2. adrian ----> 1 guesses.
 --------------------------------
@@ -87,9 +95,12 @@ Do you want to start a new game? (y/n)
 Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
 Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
 and 'exit' to quit the game.
-Enter your guess or command: HOLYCOW, YOU HAVE WON!
+
+Enter your guess or command: 
+HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
-Please enter your name for the top scoreboard: ---------- Scoreboard ----------
+Please enter your name for the top scoreboard: 
+---------- Scoreboard ----------
 1. adrian ----> 1 guesses.
 2. adrian ----> 1 guesses.
 3. adrian ----> 1 guesses.
@@ -99,9 +110,12 @@ Do you want to start a new game? (y/n)
 Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
 Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
 and 'exit' to quit the game.
-Enter your guess or command: HOLYCOW, YOU HAVE WON!
+
+Enter your guess or command: 
+HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
-Please enter your name for the top scoreboard: ---------- Scoreboard ----------
+Please enter your name for the top scoreboard: 
+---------- Scoreboard ----------
 1. adrian ----> 1 guesses.
 2. adrian ----> 1 guesses.
 3. adrian ----> 1 guesses.
@@ -112,9 +126,12 @@ Do you want to start a new game? (y/n)
 Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
 Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
 and 'exit' to quit the game.
-Enter your guess or command: HOLYCOW, YOU HAVE WON!
+
+Enter your guess or command: 
+HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
-Please enter your name for the top scoreboard: ---------- Scoreboard ----------
+Please enter your name for the top scoreboard: 
+---------- Scoreboard ----------
 1. adrian ----> 1 guesses.
 2. adrian ----> 1 guesses.
 3. adrian ----> 1 guesses.
@@ -126,9 +143,12 @@ Do you want to start a new game? (y/n)
 Welcome to ""Bulls and Cows"" game. Please try to guess my secret 4-digit number.
 Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat
 and 'exit' to quit the game.
-Enter your guess or command: HOLYCOW, YOU HAVE WON!
+
+Enter your guess or command: 
+HOLYCOW, YOU HAVE WON!
 Congratulations! You guessed the secret number in 1 attempts.
-You are not allowed to enter the top scoreboard.
+You are not allowed to enter the top scoreboard!
+
 ---------- Scoreboard ----------
 1. adrian ----> 1 guesses.
 2. adrian ----> 1 guesses.

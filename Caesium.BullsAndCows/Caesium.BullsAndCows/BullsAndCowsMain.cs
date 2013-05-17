@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Caesium.BullsAndCows
 {
-    public delegate void TopScoresDelegate(GameEngine g, ScoreBoard board);
+    public delegate void TopScoresDelegate(GameEngine engine, ScoreBoard board);
     class BullsAndCowsMain
     {
         static void Main()

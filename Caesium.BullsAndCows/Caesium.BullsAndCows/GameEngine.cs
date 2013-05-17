@@ -8,15 +8,15 @@ namespace Caesium.BullsAndCows
     public class GameEngine
     {
         private string secretNumber;
-        private List<int> positionsList;
-        private int currentPosition = 0;
         internal int numberOfGuesses;
         internal int numberOfCheats;
         private ScoreBoard scoreBoard;
         private TopScoresDelegate showTopScores;
 
-        // Fields for generating random bull position for the help command
-        // see GenerateRandomPosition and ShowRand methods
+        /// <summary>
+        /// Fields for generating random bull position for the help command.
+        /// See also GenerateRandomPosition and ShowRand methods.
+        /// </summary> 
         private List<int> Positions = new List<int>() { 0, 1, 2, 3 };
         private int maxRandomNumber = 4;
 
@@ -26,15 +26,20 @@ namespace Caesium.BullsAndCows
             this.showTopScores = showScoreBoard;
         }
 
+        /// <summary>
+        /// The game user interface.
+        /// </summary>
         public bool Run()
         {
             Console.WriteLine("Welcome to \"Bulls and Cows\" game. Please try to guess my secret 4-digit number.");
             Console.WriteLine("Use 'top' to view the top scoreboard, 'restart' to start a new game, 'help' to cheat");
             Console.WriteLine("and 'exit' to quit the game.");
-            Init();
+            
+            InitializeGame();
 
             while (true)
             {
+                Console.WriteLine();
                 Console.Write("Enter your guess or command: ");
                 string command = Console.ReadLine();
 
@@ -65,6 +70,9 @@ namespace Caesium.BullsAndCows
             } 
         }
 
+        /// <summary>
+        /// Asks user for starting a new game.
+        /// </summary>
         private bool AskForNewGame()
         {
             Console.WriteLine("Do you want to start a new game? (y/n)");
@@ -80,12 +88,14 @@ namespace Caesium.BullsAndCows
                 return false;
             }
         }
-
+        /// <summary>
+        /// Checks if secret and guessed number are equal.
+        /// </summary>
         private bool IsGuessCurrect(string guessedNumber)
         {
             if (guessedNumber == secretNumber)
             {
-                Console.WriteLine("HOLYCOW, YOU HAVE WON!");
+                PrintOutput();
                 return true;
             }
 
@@ -98,6 +108,52 @@ namespace Caesium.BullsAndCows
             return false;
         }
 
+        /// <summary>
+        /// Prints the output when the player wins.
+        /// </summary>
+        private void PrintOutput()
+        {
+            Console.WriteLine();
+            Console.WriteLine("HOLYCOW, YOU HAVE WON!");
+            Console.Write("Congratulations! You guessed the secret number in ");
+            if (numberOfCheats != 0)
+            {
+                Console.WriteLine(numberOfGuesses + " attempts and " + numberOfCheats + " cheats.");
+                Console.WriteLine("You are not allowed to enter the top scoreboard!");
+            }
+            else
+            {
+                int topRecordsCount = scoreBoard.TopRecords.Count;
+                if (topRecordsCount < 5)
+                {
+                    Console.WriteLine(numberOfGuesses + " attempts.");
+                    Console.Write("Please enter your name for the top scoreboard: ");
+
+                    string name = Console.ReadLine();
+                    scoreBoard.TopRecords.Add(new ScoreRecord(name, numberOfGuesses));
+                    scoreBoard.TopRecords.Sort();
+                }
+                else if (numberOfGuesses >= scoreBoard.TopRecords[topRecordsCount - 1].Score)
+                {
+                    Console.WriteLine(numberOfGuesses + " attempts.");
+                    Console.WriteLine("You are not allowed to enter the top scoreboard!");
+                }
+                else
+                {
+                    Console.WriteLine(numberOfGuesses + " attempts.");
+                    Console.Write("Please enter your name for the top scoreboard: ");
+
+                    string name = Console.ReadLine();
+                    scoreBoard.TopRecords.RemoveAt(scoreBoard.TopRecords.Count - 1);
+                    scoreBoard.TopRecords.Add(new ScoreRecord(name, numberOfGuesses));
+                    scoreBoard.TopRecords.Sort();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Counts how many bulls are found in the guessed number
+        /// </summary>
         private int BullsCount(string guessedNumber, bool[] foundBullPosition)
         {
             int bullsCount = 0;
@@ -120,7 +176,9 @@ namespace Caesium.BullsAndCows
             return bullsCount;
         }
 
-        // Counts how many cows are found in the guessed number
+        /// <summary>
+        /// Counts how many cows are found in the guessed number
+        /// </summary>
         private int CowsCount(string guessedNumber, bool[] foundCowPositions)
         {
             int cowsCount = 0;
@@ -151,37 +209,50 @@ namespace Caesium.BullsAndCows
             return cowsCount;
         }
 
-
-        // Generates a random position that is unique.
-        // You cant get the same position 2 times
+        /// <summary>
+        /// Generates unique random position every time.
+        /// </summary>
         private int GenerateRandomPosition()
         {
             if (maxRandomNumber <= 0)
-            {
-                throw new Exception("You cant call for help anymore!");
+            {             
+                return -1;
             }
+            else
+            {
+                Random rand = new Random();
+                int randomNumber = rand.Next(0, maxRandomNumber);
+                int generatedNumber = Positions[randomNumber];
 
-            Random rand = new Random();
-            int randomNumber = rand.Next(0, maxRandomNumber);
-            int generatedNumber = Positions[randomNumber];
-
-            maxRandomNumber--;
-            Positions.RemoveAt(randomNumber);
-
-            return generatedNumber;
+                maxRandomNumber--;
+                Positions.RemoveAt(randomNumber);
+                return generatedNumber;
+            }      
         }
 
-        // Prints on the console a random bull
+        /// <summary>
+        /// Reveals a bull on the console on random position.
+        /// </summary>
         private void PrintRandomBull()
         {
             int randomPosition = GenerateRandomPosition();
-            char bull = secretNumber[randomPosition];
-            StringBuilder sb = new StringBuilder("XXXX");
-            sb[randomPosition] = bull;
-            Console.WriteLine("The number looks like " + sb.ToString());
+            if (randomPosition == -1)
+            {
+                Console.WriteLine("You can't call for help anymore!");
+            }
+            else
+            {
+                char randomBull = secretNumber[randomPosition];
+                StringBuilder result = new StringBuilder("XXXX");
+                result[randomPosition] = randomBull;
+                Console.WriteLine("The number looks like " + result.ToString());
+            }
         }
 
-        private void Init()
+        /// <summary>
+        /// Initializes new game.
+        /// </summary>
+        private void InitializeGame()
         {
             //secretNumber = new Random().Next(1000, 10000).ToString();
             secretNumber = "1234";
