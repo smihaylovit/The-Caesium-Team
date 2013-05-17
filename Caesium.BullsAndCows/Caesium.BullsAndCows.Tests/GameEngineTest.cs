@@ -15,7 +15,9 @@ namespace Caesium.BullsAndCows.Tests
         private static StreamReader expectedReader;
         private static StreamReader outputReader;
 
-        // This method runs BEFORE every test method.
+        /// <summary>
+        /// This method runs BEFORE every test method.
+        /// </summary>
         [TestInitialize]
         public void Initialize()
         {
@@ -25,7 +27,9 @@ namespace Caesium.BullsAndCows.Tests
             Console.SetOut(consoleWriter);
         }
 
-        // This method runs AFTER every test method
+        /// <summary>
+        /// This method runs AFTER every test method
+        /// </summary>
         [TestCleanup]
         public void CleanUp()
         {
