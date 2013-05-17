@@ -10,7 +10,6 @@ namespace Caesium.BullsAndCows
         const int topRecordsNumber = 5;
         public List<ScoreRecord> TopRecords { get; private set; }
 
-        // TODO fix this method, duplicates with DoTopScore from Program class
         public ScoreBoard()
         {
             this.TopRecords = new List<ScoreRecord>(topRecordsNumber);
